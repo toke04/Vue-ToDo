@@ -9,10 +9,14 @@ const app = Vue.createApp({
     this.todos = JSON.parse(localStorage.getItem("vue-todos") || []);
   },
   computed: {
-    writingMessage: function() {
-      if (this.newTodo !== "") return 'おー、「' + this.newTodo + '」というタスクを登録するんだね😊ええで〜'
-      if (this.newTodo === "") return 'さあ、👆タスクを登録するんだ！カモン！😊'
-    }
+    writingMessage: function () {
+      if (this.newTodo !== "")
+        return (
+          "おー、「" + this.newTodo + "」というタスクを登録するんだね😊ええで〜"
+        );
+      if (this.newTodo === "")
+        return "さあ、👆タスクを登録するんだ！カモン！😊";
+    },
   },
   methods: {
     createTodo() {
