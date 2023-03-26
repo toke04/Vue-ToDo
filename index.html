@@ -20,6 +20,7 @@
         <input type="text" v-model="newTodo" />
         <button class="ms-1 create-button" v-on:click="createTodo">登録</button>
       </form>
+      <p class="mt-2">{{ writingMessage }}</p>
       <h2 class="mt-4">todo一覧</h2>
       <ul>
         <li class="mb-2" v-for="(todo, index) in todos" :key="index">
