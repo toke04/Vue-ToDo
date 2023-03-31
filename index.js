@@ -14,8 +14,7 @@ const app = Vue.createApp({
         return (
             `おー、「${this.newTodo}」というタスクを登録するんだね😊ええで〜`
         );
-      if (this.newTodo === "")
-        return "さあ、👆タスクを登録するんだ！カモン！😊";
+      return "さあ、👆タスクを登録するんだ！カモン！😊";
     },
   },
   methods: {
