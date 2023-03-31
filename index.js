@@ -30,11 +30,14 @@ const app = Vue.createApp({
       this.saveTodos();
     },
     editTodo(todo) {
-      todo.isEditing = todo.isEditing ? false : true;
+      this.toggleIsEditing(todo);
     },
     updateTodo(todo) {
-      todo.isEditing = !todo.isEditing;
+      this.toggleIsEditing(todo);
       this.saveTodos();
+    },
+    toggleIsEditing(todo) {
+      todo.isEditing = todo.isEditing ? false : true;
     },
     deleteTodo(index) {
       if (window.confirm("削除してもよろしいでしょうか？")) {
