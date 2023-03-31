@@ -24,7 +24,7 @@
       <h2 class="mt-4">todo一覧</h2>
       <ul>
         <li class="mb-2" v-for="(todo, index) in todos" :key="index">
-          <input type="checkbox" v-model="todo.isDone" />
+          <input type="checkbox" v-model="todo.isDone" v-on:change="saveTodos" />
           <span v-show="!todo.isEditing" v-bind:class="{ done: todo.isDone }"
             >{{ todo.title }}</span
           >

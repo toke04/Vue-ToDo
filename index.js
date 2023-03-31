@@ -27,22 +27,22 @@ const app = Vue.createApp({
       };
       this.todos.push(todo);
       this.newTodo = "";
-      this.saveLocalStorage();
+      this.saveTodos();
     },
     editTodo(todo) {
-      todo.isEditing = !todo.isEditing;
+      todo.isEditing = todo.isEditing ? false : true;
     },
     updateTodo(todo) {
       todo.isEditing = !todo.isEditing;
-      this.saveLocalStorage();
+      this.saveTodos();
     },
     deleteTodo(index) {
       if (window.confirm("削除してもよろしいでしょうか？")) {
         this.todos.splice(index, 1);
-        this.saveLocalStorage();
+        this.saveTodos();
       }
     },
-    saveLocalStorage() {
+    saveTodos() {
       localStorage.setItem("vue-todos", JSON.stringify(this.todos));
     },
   },
