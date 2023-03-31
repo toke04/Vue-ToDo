@@ -36,8 +36,11 @@
           >
             更新する
           </button>
-          <button class="edit-button me-1" v-on:click="editTodo(todo)">
-            {{ !todo.isEditing ? '編集' : 'キャンセルする'}}
+          <button class="edit-button me-1" v-on:click="editTodo(todo)" v-show="!todo.isEditing">
+            編集
+          </button>
+          <button class="edit-button me-1" v-on:click="cancelEdit(todo, index)" v-if="todo.isEditing">
+            キャンセルする
           </button>
           <button class="delete-button ms-1" v-on:click="deleteTodo(index)">
             削除する

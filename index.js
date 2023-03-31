@@ -32,6 +32,11 @@ const app = Vue.createApp({
     editTodo(todo) {
       this.toggleIsEditing(todo);
     },
+    cancelEdit(todo, index) {
+      const savedTodo = JSON.parse(localStorage.getItem("vue-todos"))[index];
+      todo.title = savedTodo.title
+      this.toggleIsEditing(todo);
+    },
     updateTodo(todo) {
       this.toggleIsEditing(todo);
       this.saveTodos();
