@@ -36,13 +36,13 @@
           >
             更新する
           </button>
-          <button class="edit-button me-1" v-on:click="editTodo(todo)" v-show="!todo.isEditing">
+          <button class="edit-button me-1" v-on:click="editTodo(todo)" v-show="canClickEditButton && !todo.isEditing">
             編集
           </button>
           <button class="edit-button me-1" v-on:click="cancelEdit(todo, index)" v-if="todo.isEditing">
             キャンセルする
           </button>
-          <button class="delete-button ms-1" v-on:click="deleteTodo(index)">
+          <button class="delete-button ms-1" v-on:click="deleteTodo(index)" v-show="canDelete || todo.isEditing">
             削除する
           </button>
         </li>

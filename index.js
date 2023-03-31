@@ -3,6 +3,8 @@ const app = Vue.createApp({
     return {
       newTodo: "",
       todos: [],
+      canClickEditButton: true,
+      canDelete: true
     };
   },
   mounted() {
@@ -31,18 +33,31 @@ const app = Vue.createApp({
     },
     editTodo(todo) {
       this.toggleIsEditing(todo);
+      this.disableEdit();
+      this.disableDelete()
     },
     cancelEdit(todo, index) {
       const savedTodo = JSON.parse(localStorage.getItem("vue-todos"))[index];
-      todo.title = savedTodo.title
+      todo.title = savedTodo.title;
+      this.canClickEditButton = true;
+      this.canDelete = true;
       this.toggleIsEditing(todo);
+      this.saveTodos()
     },
     updateTodo(todo) {
+      this.canClickEditButton = true;
+      this.canDelete = true;
       this.toggleIsEditing(todo);
       this.saveTodos();
     },
     toggleIsEditing(todo) {
       todo.isEditing = todo.isEditing ? false : true;
+    },
+    disableEdit() {
+      this.canClickEditButton = false;
+    },
+    disableDelete() {
+      this.canDelete = false;
     },
     deleteTodo(index) {
       if (window.confirm("削除してもよろしいでしょうか？")) {
