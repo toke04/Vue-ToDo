@@ -2,20 +2,16 @@ const app = Vue.createApp({
   data() {
     return {
       newTodo: "",
-      todos: [],
+      todos: JSON.parse(localStorage.getItem("vue-todos") || '[]'),
       canEditTodo: true,
-      canDeleteTodo: true
+      canDeleteTodo: true,
     };
-  },
-  mounted() {
-    this.todos = JSON.parse(localStorage.getItem("vue-todos") || []);
   },
   computed: {
     writingMessage() {
-      if (this.newTodo !== "")
-        return (
-            `おー、「${this.newTodo}」というタスクを登録するんだね😊ええで〜`
-        );
+      if (this.newTodo !== "") {
+        return `おー、「${this.newTodo}」というタスクを登録するんだね😊ええで〜`;
+      }
       return "さあ、👆タスクを登録するんだ！カモン！😊";
     },
   },
@@ -40,7 +36,7 @@ const app = Vue.createApp({
       todo.title = savedTodo.title;
       this.enableEditAndDeleteTodo();
       todo.isEditing = false;
-      this.saveTodos()
+      this.saveTodos();
     },
     updateTodo(todo) {
       this.enableEditAndDeleteTodo();
@@ -50,7 +46,7 @@ const app = Vue.createApp({
     deleteTodo(index) {
       if (window.confirm("削除してもよろしいでしょうか？")) {
         this.todos.splice(index, 1);
-        this.enableEditAndDeleteTodo()
+        this.enableEditAndDeleteTodo();
         this.saveTodos();
       }
     },
