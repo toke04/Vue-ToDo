@@ -2,7 +2,7 @@ const app = Vue.createApp({
   data() {
     return {
       newTodo: "",
-      todos: JSON.parse(localStorage.getItem("vue-todos") || '[]'),
+      todos: JSON.parse(localStorage.getItem("vue-todos") || "[]"),
       canEditTodo: true,
       canDeleteTodo: true,
     };
