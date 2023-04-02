@@ -3,8 +3,8 @@ const app = Vue.createApp({
     return {
       newTodo: "",
       todos: [],
-      canClickEditButton: true,
-      canDelete: true
+      canEditTodo: true,
+      canDeleteTodo: true
     };
   },
   mounted() {
@@ -32,38 +32,35 @@ const app = Vue.createApp({
       this.saveTodos();
     },
     editTodo(todo) {
-      this.toggleIsEditing(todo);
-      this.disableEdit();
-      this.disableDelete()
+      todo.isEditing = true;
+      this.disableEditAndDeleteTodo();
     },
     cancelEdit(todo, index) {
       const savedTodo = JSON.parse(localStorage.getItem("vue-todos"))[index];
       todo.title = savedTodo.title;
-      this.canClickEditButton = true;
-      this.canDelete = true;
-      this.toggleIsEditing(todo);
+      this.enableEditAndDeleteTodo();
+      todo.isEditing = false;
       this.saveTodos()
     },
     updateTodo(todo) {
-      this.canClickEditButton = true;
-      this.canDelete = true;
-      this.toggleIsEditing(todo);
+      this.enableEditAndDeleteTodo();
+      todo.isEditing = false;
       this.saveTodos();
-    },
-    toggleIsEditing(todo) {
-      todo.isEditing = todo.isEditing ? false : true;
-    },
-    disableEdit() {
-      this.canClickEditButton = false;
-    },
-    disableDelete() {
-      this.canDelete = false;
     },
     deleteTodo(index) {
       if (window.confirm("削除してもよろしいでしょうか？")) {
         this.todos.splice(index, 1);
+        this.enableEditAndDeleteTodo()
         this.saveTodos();
       }
+    },
+    enableEditAndDeleteTodo() {
+      this.canEditTodo = true;
+      this.canDeleteTodo = true;
+    },
+    disableEditAndDeleteTodo() {
+      this.canEditTodo = false;
+      this.canDeleteTodo = false;
     },
     saveTodos() {
       localStorage.setItem("vue-todos", JSON.stringify(this.todos));
