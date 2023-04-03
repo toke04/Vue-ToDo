@@ -5,7 +5,7 @@ const app = Vue.createApp({
       todos: JSON.parse(localStorage.getItem("vue-todos") || "[]"),
       canEditTodo: true,
       canDeleteTodo: true,
-      editedTodo: ""
+      editedTodo: "",
     };
   },
   computed: {
@@ -28,7 +28,7 @@ const app = Vue.createApp({
       this.newTodo = "";
       this.saveTodos();
     },
-    getMaxId(){
+    getMaxId() {
       if (this.todos.length === 0) {
         return 0;
       } else {
@@ -39,7 +39,7 @@ const app = Vue.createApp({
       localStorage.setItem("vue-todos", JSON.stringify(this.todos));
     },
     editTodo(todo) {
-      this.editedTodo = {...todo}
+      this.editedTodo = { ...todo };
       this.disableEditAndDeleteTodo();
     },
     disableEditAndDeleteTodo() {
@@ -54,17 +54,19 @@ const app = Vue.createApp({
       const savedTodo = JSON.parse(localStorage.getItem("vue-todos"))[index];
       todo.title = savedTodo.title;
       this.enableEditAndDeleteTodo();
-      this.editedTodo = ""
+      this.editedTodo = "";
       this.saveTodos();
     },
     updateTodo(todo, index) {
-      if (this.editedTodo.title === ''){
-        this.deleteTodo(index)
+      if (this.editedTodo.title === "") {
+        this.deleteTodo(index);
       } else {
-        const selectedTodo = this.todos.find((todo) => todo.id === this.editedTodo.id)
-        selectedTodo.title = this.editedTodo.title
+        const selectedTodo = this.todos.find(
+          (todo) => todo.id === this.editedTodo.id
+        );
+        selectedTodo.title = this.editedTodo.title;
         this.enableEditAndDeleteTodo();
-        this.editedTodo = ""
+        this.editedTodo = "";
         this.saveTodos();
       }
     },

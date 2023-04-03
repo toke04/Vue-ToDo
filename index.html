@@ -29,10 +29,16 @@
             v-model="todo.isDone"
             v-on:change="saveTodos"
           />
-          <span v-show="todo.id !== editedTodo.id" v-bind:class="{ done: todo.isDone }"
+          <span
+            v-show="todo.id !== editedTodo.id"
+            v-bind:class="{ done: todo.isDone }"
             >{{ todo.title }}</span
           >
-          <input class="ms-1" v-show="!canEditTodo && todo.id === editedTodo.id" v-model="editedTodo.title" />
+          <input
+            class="ms-1"
+            v-show="!canEditTodo && todo.id === editedTodo.id"
+            v-model="editedTodo.title"
+          />
           <button
             class="update-button mx-2"
             v-show="!canEditTodo && todo.id === editedTodo.id"
