@@ -29,35 +29,35 @@
             v-model="todo.isDone"
             v-on:change="saveTodos"
           />
-          <span v-show="!todo.isEditing" v-bind:class="{ done: todo.isDone }"
+          <span v-show="todo.id !== editedTodo.id" v-bind:class="{ done: todo.isDone }"
             >{{ todo.title }}</span
           >
-          <input class="ms-1" v-show="todo.isEditing" v-model="todo.title" />
+          <input class="ms-1" v-show="!canEditTodo && todo.id === editedTodo.id" v-model="editedTodo.title" />
           <button
             class="update-button mx-2"
-            v-show="todo.isEditing"
-            v-on:click="updateTodo(todo)"
+            v-show="!canEditTodo && todo.id === editedTodo.id"
+            v-on:click="updateTodo(todo, index)"
           >
             更新する
           </button>
           <button
             class="edit-button me-1"
             v-on:click="editTodo(todo)"
-            v-show="canEditTodo && !todo.isEditing"
+            v-show="canEditTodo"
           >
             編集
           </button>
           <button
             class="edit-button me-1"
             v-on:click="cancelEdit(todo, index)"
-            v-if="todo.isEditing"
+            v-if="!canEditTodo && todo.id === editedTodo.id"
           >
             キャンセルする
           </button>
           <button
             class="delete-button ms-1"
             v-on:click="deleteTodo(index)"
-            v-show="canDeleteTodo || todo.isEditing"
+            v-show="canDeleteTodo || todo.id === editedTodo.id"
           >
             削除する
           </button>

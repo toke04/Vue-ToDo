@@ -5,6 +5,7 @@ const app = Vue.createApp({
       todos: JSON.parse(localStorage.getItem("vue-todos") || "[]"),
       canEditTodo: true,
       canDeleteTodo: true,
+      editedTodo: ""
     };
   },
   computed: {
@@ -14,13 +15,20 @@ const app = Vue.createApp({
       }
       return "さあ、👆タスクを登録するんだ！カモン！😊";
     },
+    getMaxId(){
+      if (this.todos.length === 0) {
+        return 0;
+      } else {
+        return Math.max(...this.todos.map((todo) => todo.id)) + 1;
+      }
+    },
   },
   methods: {
     createTodo() {
       if (this.newTodo === "") return;
       const todo = {
+        id: this.getMaxId,
         title: this.newTodo,
-        isEditing: false,
         isDone: false,
       };
       this.todos.push(todo);
@@ -28,26 +36,33 @@ const app = Vue.createApp({
       this.saveTodos();
     },
     editTodo(todo) {
-      todo.isEditing = true;
+      this.editedTodo = {...todo}
       this.disableEditAndDeleteTodo();
     },
     cancelEdit(todo, index) {
       const savedTodo = JSON.parse(localStorage.getItem("vue-todos"))[index];
       todo.title = savedTodo.title;
       this.enableEditAndDeleteTodo();
-      todo.isEditing = false;
+      this.editedTodo = ""
       this.saveTodos();
     },
-    updateTodo(todo) {
-      this.enableEditAndDeleteTodo();
-      todo.isEditing = false;
-      this.saveTodos();
+    updateTodo(todo, index) {
+      if (this.editedTodo.title === ''){
+        this.deleteTodo(index)
+      } else {
+        const selectedTodo = this.todos.find((todo) => todo.id === this.editedTodo.id)
+        selectedTodo.title = this.editedTodo.title
+        this.enableEditAndDeleteTodo();
+        this.editedTodo = ""
+        this.saveTodos();
+      }
     },
     deleteTodo(index) {
       if (window.confirm("削除してもよろしいでしょうか？")) {
         this.todos.splice(index, 1);
         this.enableEditAndDeleteTodo();
         this.saveTodos();
+        location.reload();
       }
     },
     enableEditAndDeleteTodo() {
