@@ -15,6 +15,9 @@ const app = Vue.createApp({
       }
       return "さあ、👆タスクを登録するんだ！カモン！😊";
     },
+    currentTodos() {
+      return this.todos;
+    },
   },
   methods: {
     createTodo() {
@@ -75,7 +78,6 @@ const app = Vue.createApp({
         this.todos.splice(index, 1);
         this.enableEditAndDeleteTodo();
         this.saveTodos();
-        location.reload();
       }
     },
   },
