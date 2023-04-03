@@ -15,19 +15,12 @@ const app = Vue.createApp({
       }
       return "さあ、👆タスクを登録するんだ！カモン！😊";
     },
-    getMaxId(){
-      if (this.todos.length === 0) {
-        return 0;
-      } else {
-        return Math.max(...this.todos.map((todo) => todo.id)) + 1;
-      }
-    },
   },
   methods: {
     createTodo() {
       if (this.newTodo === "") return;
       const todo = {
-        id: this.getMaxId,
+        id: this.getMaxId(),
         title: this.newTodo,
         isDone: false,
       };
@@ -35,9 +28,27 @@ const app = Vue.createApp({
       this.newTodo = "";
       this.saveTodos();
     },
+    getMaxId(){
+      if (this.todos.length === 0) {
+        return 0;
+      } else {
+        return Math.max(...this.todos.map((todo) => todo.id)) + 1;
+      }
+    },
+    saveTodos() {
+      localStorage.setItem("vue-todos", JSON.stringify(this.todos));
+    },
     editTodo(todo) {
       this.editedTodo = {...todo}
       this.disableEditAndDeleteTodo();
+    },
+    disableEditAndDeleteTodo() {
+      this.canEditTodo = false;
+      this.canDeleteTodo = false;
+    },
+    enableEditAndDeleteTodo() {
+      this.canEditTodo = true;
+      this.canDeleteTodo = true;
     },
     cancelEdit(todo, index) {
       const savedTodo = JSON.parse(localStorage.getItem("vue-todos"))[index];
@@ -64,17 +75,6 @@ const app = Vue.createApp({
         this.saveTodos();
         location.reload();
       }
-    },
-    enableEditAndDeleteTodo() {
-      this.canEditTodo = true;
-      this.canDeleteTodo = true;
-    },
-    disableEditAndDeleteTodo() {
-      this.canEditTodo = false;
-      this.canDeleteTodo = false;
-    },
-    saveTodos() {
-      localStorage.setItem("vue-todos", JSON.stringify(this.todos));
     },
   },
 });
