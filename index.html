@@ -55,7 +55,7 @@
           </button>
           <button
             class="edit-button me-1"
-            v-on:click="cancelEdit(todo, index)"
+            v-on:click="cancelEdit"
             v-if="todo.id === editedTodo.id"
           >
             キャンセルする

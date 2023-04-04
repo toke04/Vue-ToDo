@@ -21,7 +21,7 @@ const app = Vue.createApp({
     createTodo() {
       if (this.newTodo === "") return;
       const todo = {
-        id: this.getMaxId(),
+        id: this.getTodoId(),
         title: this.newTodo,
         isDone: false,
       };
@@ -29,7 +29,7 @@ const app = Vue.createApp({
       this.newTodo = "";
       this.saveTodos();
     },
-    getMaxId() {
+    getTodoId() {
       if (this.todos.length === 0) {
         return 0;
       } else {
@@ -42,7 +42,7 @@ const app = Vue.createApp({
     editTodo(todo) {
       this.editedTodo = { ...todo };
     },
-    cancelEdit(todo, index) {
+    cancelEdit() {
       this.editedTodo = "";
     },
     updateTodo(todo, index) {
