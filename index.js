@@ -13,9 +13,6 @@ const app = Vue.createApp({
       }
       return "さあ、👆タスクを登録するんだ！カモン！😊";
     },
-    currentTodos() {
-      return this.todos;
-    },
   },
   methods: {
     createTodo() {
