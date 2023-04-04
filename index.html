@@ -36,12 +36,12 @@
           >
           <input
             class="ms-1"
-            v-show="!canEditTodo && todo.id === editedTodo.id"
+            v-show="todo.id === editedTodo.id"
             v-model="editedTodo.title"
           />
           <button
             class="update-button mx-2"
-            v-show="!canEditTodo && todo.id === editedTodo.id"
+            v-show="todo.id === editedTodo.id"
             v-on:click="updateTodo(todo, index)"
           >
             更新する
@@ -49,21 +49,21 @@
           <button
             class="edit-button me-1"
             v-on:click="editTodo(todo)"
-            v-show="canEditTodo"
+            v-show="!editedTodo"
           >
             編集
           </button>
           <button
             class="edit-button me-1"
             v-on:click="cancelEdit(todo, index)"
-            v-if="!canEditTodo && todo.id === editedTodo.id"
+            v-if="todo.id === editedTodo.id"
           >
             キャンセルする
           </button>
           <button
             class="delete-button ms-1"
             v-on:click="deleteTodo(index)"
-            v-show="canDeleteTodo || todo.id === editedTodo.id"
+            v-show="!editedTodo || todo.id === editedTodo.id"
           >
             削除する
           </button>
