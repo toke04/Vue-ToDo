@@ -43,10 +43,7 @@ const app = Vue.createApp({
       this.editedTodo = { ...todo };
     },
     cancelEdit(todo, index) {
-      const savedTodo = JSON.parse(localStorage.getItem("vue-todos"))[index];
-      todo.title = savedTodo.title;
       this.editedTodo = "";
-      this.saveTodos();
     },
     updateTodo(todo, index) {
       if (this.editedTodo.title === "") {
@@ -56,14 +53,15 @@ const app = Vue.createApp({
           (todo) => todo.id === this.editedTodo.id
         );
         selectedTodo.title = this.editedTodo.title;
-          this.editedTodo = "";
+        this.editedTodo = "";
         this.saveTodos();
       }
     },
     deleteTodo(index) {
       if (window.confirm("削除してもよろしいでしょうか？")) {
         this.todos.splice(index, 1);
-          this.saveTodos();
+        this.editedTodo = "";
+        this.saveTodos();
       }
     },
   },
