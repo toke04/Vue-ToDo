@@ -1,0 +1,26 @@
+span {
+  font-size: 18px;
+  margin: 0 10px;
+}
+
+li {
+  list-style: none;
+}
+
+h1 {
+  color: rgb(82, 181, 148);
+}
+
+.done {
+  text-decoration: line-through;
+}
+
+.create-button,
+.edit-button,
+.update-button {
+  background-color: rgb(161, 224, 203);
+}
+
+.delete-button {
+  background-color: rgb(228, 109, 131);
+}
